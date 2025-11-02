@@ -1,10 +1,18 @@
-import { os } from "@orpc/server";
+import { headers } from "next/headers";
 
+import { ORPCError, os } from "@orpc/server";
+
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 
 export const createORPCContext = async (opts: { headers: Headers }) => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return {
     db,
+    session,
     ...opts,
   };
 };
@@ -29,4 +37,25 @@ const timingMiddleware = o.middleware(async ({ next, path }) => {
   return result;
 });
 
+const authMiddleware = o.middleware(async ({ next, context }) => {
+  if (!context.session) {
+    throw new ORPCError("UNAUTHORIZED", {
+      cause: "Unauthorized",
+      message: "You are not authorized to perform this action",
+      status: 401,
+    });
+  }
+
+  return next({
+    context: {
+      ...context,
+      auth: {
+        session: context.session.session,
+        user: context.session.user,
+      },
+    },
+  });
+});
+
 export const publicProcedure = o.use(timingMiddleware);
+export const protectedProcedure = publicProcedure.use(authMiddleware);
