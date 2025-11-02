@@ -1,7 +1,10 @@
 import { os } from "@orpc/server";
 
+import { db } from "@/lib/db";
+
 export const createORPCContext = async (opts: { headers: Headers }) => {
   return {
+    db,
     ...opts,
   };
 };
