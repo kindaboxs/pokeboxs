@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BunSettings">
+    <option name="bunPath" value="$USER_HOME$/.bun/bin/bun" />
+  </component>
+  <component name="PrettierConfiguration">
+    <option name="myConfigurationMode" value="AUTOMATIC" />
+    <option name="myRunOnSave" value="true" />
+    <option name="myFilesPattern" value="**/*.{html,css,js,ts,jsx,tsx,cjs,cts,mjs,mts,json,vue,astro}" />
+  </component>
+  <component name="TypeScriptCompiler">
+    <option name="nodeInterpreterTextField" value="$USER_HOME$/.config/nvm/versions/node/v22.21.0/bin/node" />
+    <option name="useTypesFromServer" value="true" />
+  </component>
+</project>
