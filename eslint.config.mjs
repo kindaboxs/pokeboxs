@@ -2,6 +2,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 
 import { FlatCompat } from "@eslint/eslintrc";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -27,6 +28,7 @@ const eslintConfig = defineConfig(
     files: ["**/*.ts", "**/*.tsx"],
     plugins: {
       "@typescript-eslint": tseslint.plugin,
+      "@tanstack/query": pluginQuery,
     },
     extends: [
       ...tseslint.configs.recommended,
@@ -49,6 +51,8 @@ const eslintConfig = defineConfig(
         "error",
         { checksVoidReturn: { attributes: false } },
       ],
+      //
+      "@tanstack/query/exhaustive-deps": "error",
     },
   },
   {
